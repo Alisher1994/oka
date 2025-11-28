@@ -1,0 +1,96 @@
+{
+  "app_name": "Les Ailes Delivery",
+  "home": "Главная",
+  "cart": "Корзина",
+  "orders": "Заказы",
+  "profile": "Профиль",
+  
+  "categories": "Категории",
+  "all_products": "Все товары",
+  "search": "Поиск",
+  
+  "add_to_cart": "В корзину",
+  "in_cart": "В корзине",
+  "quantity": "Количество",
+  "price": "Цена",
+  "total": "Итого",
+  "sum": "сўм",
+  
+  "checkout": "Оформить заказ",
+  "clear_cart": "Очистить корзину",
+  "cart_empty": "Корзина пуста",
+  "continue_shopping": "Продолжить покупки",
+  
+  "order_details": "Детали заказа",
+  "customer_info": "Информация о клиенте",
+  "name": "Имя",
+  "phone": "Телефон",
+  "comment": "Комментарий к заказу",
+  "comment_optional": "Добавить комментарий (необязательно)",
+  
+  "delivery_method": "Способ получения",
+  "delivery": "Доставка",
+  "pickup": "Самовывоз",
+  
+  "select_branch": "Выберите филиал",
+  "branch": "Филиал",
+  
+  "delivery_address": "Адрес доставки",
+  "select_on_map": "Выбрать на карте",
+  "select_address": "Укажите адрес доставки",
+  
+  "delivery_time": "Время доставки",
+  "select_time": "Выберите время",
+  "asap": "Как можно скорее",
+  "min_delivery_time": "Минимальное время доставки: 1 час",
+  
+  "payment_method": "Способ оплаты",
+  "cash": "Наличные",
+  "card": "Карта",
+  
+  "place_order": "Оформить заказ",
+  "order_number": "Номер заказа",
+  "enter_order_number": "Введите номер заказа",
+  
+  "order_success": "Заказ оформлен!",
+  "order_success_message": "Ваш заказ принят и скоро будет обработан",
+  "order_pending": "Заказ отправлен",
+  "order_confirmed": "Заказ подтвержден",
+  "order_preparing": "Готовится",
+  "order_delivering": "Доставляется",
+  "order_completed": "Выполнен",
+  "order_cancelled": "Отменен",
+  
+  "my_orders": "Мои заказы",
+  "no_orders": "У вас пока нет заказов",
+  "order_status": "Статус заказа",
+  "order_created": "Создан",
+  
+  "language": "Язык",
+  "russian": "Русский",
+  "english": "English",
+  
+  "pcs": "шт",
+  "kg": "кг",
+  "l": "л",
+  
+  "enter_quantity": "Введите количество",
+  "required_field": "Обязательное поле",
+  "invalid_phone": "Неверный формат телефона",
+  
+  "error": "Ошибка",
+  "try_again": "Попробовать снова",
+  "loading": "Загрузка...",
+  
+  "unavailable": "Недоступно",
+  "no_products": "Нет товаров",
+  "add_products_to_cart": "Добавьте товары в корзину",
+  "fill_required_fields": "Заполните все обязательные поля",
+  "enter_address": "Введите адрес",
+  "hide_map": "Скрыть карту",
+  "custom_order_number": "Можете изменить номер заказа на свой",
+  "make_first_order": "Сделайте свой первый заказ",
+  "open_in_telegram": "Откройте приложение через Telegram для полного функционала",
+  "settings": "Настройки",
+  "about_app": "О приложении"
+}

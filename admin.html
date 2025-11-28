@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Les Ailes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #E91E63;
+            margin-bottom: 30px;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 16px;
+            color: #666;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab.active {
+            color: #E91E63;
+            border-bottom-color: #E91E63;
+        }
+        
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .btn-primary {
+            background: #E91E63;
+            color: white;
+        }
+        
+        .btn-danger {
+            background: #f44336;
+            color: white;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background: #f5f5f5;
+            font-weight: 600;
+        }
+        
+        .status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-confirmed { background: #d1ecf1; color: #0c5460; }
+        .status-completed { background: #d4edda; color: #155724; }
+        .status-cancelled { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛠️ Admin Panel</h1>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('orders')">Заказы</button>
+            <button class="tab" onclick="showTab('products')">Товары</button>
+            <button class="tab" onclick="showTab('categories')">Категории</button>
+            <button class="tab" onclick="showTab('branches')">Филиалы</button>
+        </div>
+        
+        <!-- Orders Tab -->
+        <div id="orders" class="tab-content active">
+            <h2>Список заказов</h2>
+            <table id="ordersTable">
+                <thead>
+                    <tr>
+                        <th>№ Заказа</th>
+                        <th>Клиент</th>
+                        <th>Телефон</th>
+                        <th>Сумма</th>
+                        <th>Статус</th>
+                        <th>Дата</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="7">Загрузка...</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Products Tab -->
+        <div id="products" class="tab-content">
+            <h2>Управление товарами</h2>
+            <button class="btn btn-primary" onclick="showAddProductForm()">+ Добавить товар</button>
+            
+            <div id="addProductForm" style="display: none; margin-top: 20px;">
+                <h3>Новый товар</h3>
+                <form onsubmit="addProduct(event)">
+                    <div class="form-group">
+                        <label>Название (RU)</label>
+                        <input type="text" name="name_ru" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Название (EN)</label>
+                        <input type="text" name="name_en" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Цена</label>
+                        <input type="number" name="price" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Единица измерения</label>
+                        <select name="unit" required>
+                            <option value="pcs">Штуки</option>
+                            <option value="kg">Килограммы</option>
+                            <option value="l">Литры</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Категория</label>
+                        <select name="category_id" id="productCategorySelect">
+                            <option value="">Выберите категорию</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Изображение</label>
+                        <input type="file" name="image" accept="image/*">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </form>
+            </div>
+            
+            <table id="productsTable" style="margin-top: 20px;">
+                <thead>
+                    <tr>
+                        <th>Фото</th>
+                        <th>Название</th>
+                        <th>Цена</th>
+                        <th>Ед.изм</th>
+                        <th>Категория</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="6">Загрузка...</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Categories Tab -->
+        <div id="categories" class="tab-content">
+            <h2>Управление категориями</h2>
+            <button class="btn btn-primary" onclick="showAddCategoryForm()">+ Добавить категорию</button>
+            
+            <div id="addCategoryForm" style="display: none; margin-top: 20px;">
+                <h3>Новая категория</h3>
+                <form onsubmit="addCategory(event)">
+                    <div class="form-group">
+                        <label>Название (RU)</label>
+                        <input type="text" name="name_ru" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Название (EN)</label>
+                        <input type="text" name="name_en" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Иконка (emoji)</label>
+                        <input type="text" name="icon" placeholder="🍔">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </form>
+            </div>
+            
+            <table id="categoriesTable" style="margin-top: 20px;">
+                <thead>
+                    <tr>
+                        <th>Иконка</th>
+                        <th>Название (RU)</th>
+                        <th>Название (EN)</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="4">Загрузка...</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Branches Tab -->
+        <div id="branches" class="tab-content">
+            <h2>Управление филиалами</h2>
+            <p>Список филиалов загружен из базы данных.</p>
+            <table id="branchesTable">
+                <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Адрес</th>
+                        <th>Телефон</th>
+                        <th>Часы работы</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="4">Загрузка...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script>
+        const API_URL = 'http://localhost:3000/api';
+        
+        function showTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+            
+            if (tabName === 'orders') loadOrders();
+            if (tabName === 'products') loadProducts();
+            if (tabName === 'categories') loadCategories();
+            if (tabName === 'branches') loadBranches();
+        }
+        
+        async function loadOrders() {
+            try {
+                const res = await fetch(`${API_URL}/admin/orders`);
+                const orders = await res.json();
+                
+                const tbody = document.querySelector('#ordersTable tbody');
+                tbody.innerHTML = orders.map(o => `
+                    <tr>
+                        <td>${o.order_number}</td>
+                        <td>${o.customer_name}</td>
+                        <td>${o.customer_phone}</td>
+                        <td>${o.total_amount} сўм</td>
+                        <td><span class="status status-${o.status}">${o.status}</span></td>
+                        <td>${new Date(o.created_at).toLocaleString('ru-RU')}</td>
+                        <td>
+                            <select onchange="updateOrderStatus(${o.id}, this.value)">
+                                <option value="">Изменить статус</option>
+                                <option value="confirmed">Подтвержден</option>
+                                <option value="preparing">Готовится</option>
+                                <option value="delivering">Доставляется</option>
+                                <option value="completed">Выполнен</option>
+                                <option value="cancelled">Отменен</option>
+                            </select>
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        
+        async function updateOrderStatus(orderId, status) {
+            if (!status) return;
+            
+            try {
+                await fetch(`${API_URL}/admin/orders/${orderId}/status`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status })
+                });
+                
+                alert('Статус обновлен!');
+                loadOrders();
+            } catch (err) {
+                alert('Ошибка: ' + err.message);
+            }
+        }
+        
+        async function loadProducts() {
+            try {
+                const res = await fetch(`${API_URL}/products`);
+                const products = await res.json();
+                
+                const tbody = document.querySelector('#productsTable tbody');
+                tbody.innerHTML = products.map(p => `
+                    <tr>
+                        <td><img src="${p.image_url || ''}" width="50" height="50" style="object-fit: cover;"></td>
+                        <td>${p.name_ru}</td>
+                        <td>${p.price} сўм</td>
+                        <td>${p.unit}</td>
+                        <td>${p.category_name_ru || '-'}</td>
+                        <td>
+                            <button class="btn btn-danger" onclick="deleteProduct(${p.id})">Удалить</button>
+                        </td>
+                    </tr>
+                `).join('');
+                
+                // Load categories for dropdown
+                const catRes = await fetch(`${API_URL}/categories`);
+                const categories = await catRes.json();
+                const select = document.getElementById('productCategorySelect');
+                select.innerHTML = '<option value="">Выберите категорию</option>' +
+                    categories.map(c => `<option value="${c.id}">${c.name_ru}</option>`).join('');
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        
+        async function loadCategories() {
+            try {
+                const res = await fetch(`${API_URL}/categories`);
+                const categories = await res.json();
+                
+                const tbody = document.querySelector('#categoriesTable tbody');
+                tbody.innerHTML = categories.map(c => `
+                    <tr>
+                        <td>${c.icon || ''}</td>
+                        <td>${c.name_ru}</td>
+                        <td>${c.name_en}</td>
+                        <td>
+                            <button class="btn btn-danger" onclick="deleteCategory(${c.id})">Удалить</button>
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        
+        async function loadBranches() {
+            try {
+                const res = await fetch(`${API_URL}/branches`);
+                const branches = await res.json();
+                
+                const tbody = document.querySelector('#branchesTable tbody');
+                tbody.innerHTML = branches.map(b => `
+                    <tr>
+                        <td>${b.name_ru}</td>
+                        <td>${b.address_ru}</td>
+                        <td>${b.phone}</td>
+                        <td>${b.working_hours}</td>
+                    </tr>
+                `).join('');
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        
+        function showAddProductForm() {
+            document.getElementById('addProductForm').style.display = 'block';
+        }
+        
+        function showAddCategoryForm() {
+            document.getElementById('addCategoryForm').style.display = 'block';
+        }
+        
+        async function addProduct(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            
+            try {
+                await fetch(`${API_URL}/admin/products`, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                alert('Товар добавлен!');
+                e.target.reset();
+                document.getElementById('addProductForm').style.display = 'none';
+                loadProducts();
+            } catch (err) {
+                alert('Ошибка: ' + err.message);
+            }
+        }
+        
+        async function addCategory(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            
+            try {
+                await fetch(`${API_URL}/admin/categories`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                alert('Категория добавлена!');
+                e.target.reset();
+                document.getElementById('addCategoryForm').style.display = 'none';
+                loadCategories();
+            } catch (err) {
+                alert('Ошибка: ' + err.message);
+            }
+        }
+        
+        async function deleteProduct(id) {
+            if (!confirm('Удалить товар?')) return;
+            
+            try {
+                await fetch(`${API_URL}/admin/products/${id}`, { method: 'DELETE' });
+                alert('Товар удален!');
+                loadProducts();
+            } catch (err) {
+                alert('Ошибка: ' + err.message);
+            }
+        }
+        
+        async function deleteCategory(id) {
+            if (!confirm('Удалить категорию?')) return;
+            
+            try {
+                await fetch(`${API_URL}/admin/categories/${id}`, { method: 'DELETE' });
+                alert('Категория удалена!');
+                loadCategories();
+            } catch (err) {
+                alert('Ошибка: ' + err.message);
+            }
+        }
+        
+        // Load orders on page load
+        loadOrders();
+    </script>
+</body>
+</html>

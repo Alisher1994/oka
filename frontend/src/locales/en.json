@@ -1,0 +1,96 @@
+{
+  "app_name": "Les Ailes Delivery",
+  "home": "Home",
+  "cart": "Cart",
+  "orders": "Orders",
+  "profile": "Profile",
+  
+  "categories": "Categories",
+  "all_products": "All products",
+  "search": "Search",
+  
+  "add_to_cart": "Add to cart",
+  "in_cart": "In cart",
+  "quantity": "Quantity",
+  "price": "Price",
+  "total": "Total",
+  "sum": "sum",
+  
+  "checkout": "Checkout",
+  "clear_cart": "Clear cart",
+  "cart_empty": "Cart is empty",
+  "continue_shopping": "Continue shopping",
+  
+  "order_details": "Order details",
+  "customer_info": "Customer information",
+  "name": "Name",
+  "phone": "Phone",
+  "comment": "Order comment",
+  "comment_optional": "Add comment (optional)",
+  
+  "delivery_method": "Delivery method",
+  "delivery": "Delivery",
+  "pickup": "Pickup",
+  
+  "select_branch": "Select branch",
+  "branch": "Branch",
+  
+  "delivery_address": "Delivery address",
+  "select_on_map": "Select on map",
+  "select_address": "Select delivery address",
+  
+  "delivery_time": "Delivery time",
+  "select_time": "Select time",
+  "asap": "As soon as possible",
+  "min_delivery_time": "Minimum delivery time: 1 hour",
+  
+  "payment_method": "Payment method",
+  "cash": "Cash",
+  "card": "Card",
+  
+  "place_order": "Place order",
+  "order_number": "Order number",
+  "enter_order_number": "Enter order number",
+  
+  "order_success": "Order placed!",
+  "order_success_message": "Your order has been received and will be processed soon",
+  "order_pending": "Order sent",
+  "order_confirmed": "Order confirmed",
+  "order_preparing": "Preparing",
+  "order_delivering": "Delivering",
+  "order_completed": "Completed",
+  "order_cancelled": "Cancelled",
+  
+  "my_orders": "My orders",
+  "no_orders": "You don't have any orders yet",
+  "order_status": "Order status",
+  "order_created": "Created",
+  
+  "language": "Language",
+  "russian": "Русский",
+  "english": "English",
+  
+  "pcs": "pcs",
+  "kg": "kg",
+  "l": "l",
+  
+  "enter_quantity": "Enter quantity",
+  "required_field": "Required field",
+  "invalid_phone": "Invalid phone format",
+  
+  "error": "Error",
+  "try_again": "Try again",
+  "loading": "Loading...",
+  
+  "unavailable": "Unavailable",
+  "no_products": "No products",
+  "add_products_to_cart": "Add products to cart",
+  "fill_required_fields": "Fill in all required fields",
+  "enter_address": "Enter address",
+  "hide_map": "Hide map",
+  "custom_order_number": "You can change the order number to your own",
+  "make_first_order": "Make your first order",
+  "open_in_telegram": "Open the app via Telegram for full functionality",
+  "settings": "Settings",
+  "about_app": "About app"
+}
